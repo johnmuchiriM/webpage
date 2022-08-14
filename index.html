@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<script>
+
+
+var quki;
+var quki1;
+
+console.log("Test"+quki)
+$(document).ready(function (){
+    $.ajax({
+        url: "https://data.nasdaq.com/api/v3/datatables/ETFG/FUND.json?ticker=SPY,IWM,GLD,JNK,TLT,EEM,EFA&api_key=BztJcaaeKKX-UyRcEnTp",
+        type:"GET",
+        success: function(result){
+            var list = [];
+            list = result;
+
+            var newarr = list.datatable.data;
+            console.log(newarr);
+
+            var bera = [];
+            var good = [];
+            var peru = [];
+
+            var bera1 = [];
+            var good1 = [];
+            var peru1 = [];
+
+            for(let i = 0; i <newarr.length; i++){
+               
+              
+               good +=  " ,"+ newarr[i][1];
+               
+              }
+
+            for(let i = 0; i <newarr.length; i++){
+               
+              
+                  good1 +=  " ,"+ newarr[i][3];
+                  
+                 }
+
+          
+           
+
+            
+              bera = good.slice(0,140).slice(0,-1).split(/[.,!,?]/);
+
+              peru = bera;
+
+              quki = peru.slice(23,-1);
+
+              bera1 = good1.slice(0,140).slice(0,-1).split(/[.,!,?]/);
+
+              peru1 = bera1;
+
+              quki1 = peru1.slice(29,-1);
+
+
+
+
+              console.log(peru1.slice(29,-1));
+              console.log(peru.slice(23,-1));
+
+            var xValues = quki;
+            var yValues = quki1;
+            console.log(xValues);
+            console.log(yValues);
+            var barColors = ["red", "green","blue","orange","brown"];
+
+            new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                //   backgroundColor: barColors,
+                data: yValues
+                }]
+            },
+            //   options: {...}
+            });
+
+              
+            
+            },
+        error:function(error){
+            console.log(error);
+        }
+    })
+})
+
+
+
+</script>
+
+</body>
+</html>
+
+
